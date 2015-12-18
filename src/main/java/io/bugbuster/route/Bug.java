@@ -1,6 +1,6 @@
-package io.bugify.route;
+package io.bugbuster.route;
 
-import io.bugify.BugifyConfigurationModel;
+import io.bugbuster.BugListConfigurationModel;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -20,7 +20,7 @@ public class Bug implements Route {
         {
             String[] bugids = request.params("bugid").split("-");
             try {
-                String pathname = BugifyConfigurationModel.BUGIFY_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
+                String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
 
                 System.out.println(pathname);
                 return FileUtils.readFileToString(new File(pathname));
@@ -31,7 +31,7 @@ public class Bug implements Route {
             {
                 String[] bugids = request.params("bugid").split("-");
                 try {
-                    String pathname = BugifyConfigurationModel.BUGIFY_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
+                    String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
                     File file = new File(pathname);
                     JSONObject jsonObject = new JSONObject(FileUtils.readFileToString(file));
                     jsonObject.put("open",true);
@@ -51,7 +51,7 @@ public class Bug implements Route {
             else if (v.toUpperCase().equals("CLOSE"))
             {String[] bugids = request.params("bugid").split("-");
                 try {
-                    String pathname = BugifyConfigurationModel.BUGIFY_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
+                    String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
                     File file = new File(pathname);
                     System.out.println(pathname);
                     JSONObject jsonObject = new JSONObject(FileUtils.readFileToString(file));
@@ -71,7 +71,11 @@ public class Bug implements Route {
 
             }
 
-        return "No result";
+        return  "  <head>\n" +
+                "    <title>Subscribe</title>\n" +
+                "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
+                "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
+                "  </head>\n" +"No result";
     }
 
 }

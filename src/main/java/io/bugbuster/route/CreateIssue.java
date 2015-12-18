@@ -1,6 +1,6 @@
-package io.bugify.route;
+package io.bugbuster.route;
 
-import io.bugify.BugifyConfigurationModel;
+import io.bugbuster.BugListConfigurationModel;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -28,12 +28,12 @@ public class CreateIssue implements Route {
             jsonObject.put("modified_at", System.currentTimeMillis());
             jsonObject.put("open", true);
 
-            value = new File(BugifyConfigurationModel.BUGIFY_HOME + "/" + appname).list().length+1;
+            value = new File(BugListConfigurationModel.BUGLIST_HOME + "/" + appname).list().length+1;
 
             jsonObject.put("id", appname+"-"+value);
 
 
-            File file = new File(BugifyConfigurationModel.BUGIFY_HOME + "/" + appname + "/" + value + ".json");
+            File file = new File(BugListConfigurationModel.BUGLIST_HOME + "/" + appname + "/" + value + ".json");
             FileUtils.writeStringToFile(file,jsonObject.toString());
 
         } catch (JSONException e) {
@@ -42,6 +42,11 @@ public class CreateIssue implements Route {
             e.printStackTrace();
         }
 
-        return "<a href=\"/bug/\""+value+">"+value+"</a>";
+        return "  <head>\n" +
+                "    <title>Subscribe</title>\n" +
+                "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
+                "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
+                "  </head>\n"+
+                "<a href=\"/bug/\""+value+">"+value+"</a>";
     }
 }

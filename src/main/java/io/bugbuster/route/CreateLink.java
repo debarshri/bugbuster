@@ -1,13 +1,10 @@
-package io.bugify.route;
+package io.bugbuster.route;
 
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * Created by dbasak on 12/17/15.
- */
-public class BugClose implements Route {
+public class CreateLink implements Route {
     public Object handle(Request request, Response response) {
         return null;
     }
