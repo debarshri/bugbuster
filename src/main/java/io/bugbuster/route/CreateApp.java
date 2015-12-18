@@ -1,6 +1,7 @@
 package io.bugbuster.route;
 
 import io.bugbuster.BugListConfigurationModel;
+import io.bugbuster.PageUtils;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -23,11 +24,7 @@ public class CreateApp implements Route {
             {
                 response.redirect("/app/"+appname);
             }
-            return "  <head>\n" +
-                    "    <title>Subscribe</title>\n" +
-                    "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
-                    "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
-                    "  </head>\n"+ mkdir;
+            return PageUtils.HEADER+ mkdir;
         }
         else
         {

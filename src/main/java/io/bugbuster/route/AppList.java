@@ -2,6 +2,7 @@ package io.bugbuster.route;
 
 import com.google.common.collect.Lists;
 import io.bugbuster.BugListConfigurationModel;
+import io.bugbuster.PageUtils;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -18,11 +19,7 @@ public class AppList implements Route {
             body = body + "<a href=\"/app/"+element+"\">"+element+"</a><br />";
         }
 
-        return   "  <head>\n" +
-                "    <title>Subscribe</title>\n" +
-                "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
-                "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
-                "  </head>\n" +
+        return   PageUtils.HEADER +
                 body;
     }
 }

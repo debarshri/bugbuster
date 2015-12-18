@@ -32,10 +32,11 @@ public class App implements Route {
             body = body + "<a href=\"/bug/"+collection+"\">"+collection+"</a>";
         }
 
-        return "  <head>\n" +
-                "    <title>Subscribe</title>\n" +
-                "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
-                "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
-                "  </head>\n"+body;
+        return PageUtils.HEADER+
+                "<section>"+
+                "  <a href='/create-issue/"+appname+"'>Create issue<a/>" +
+                " <hr />"
+                +body
+        +"</section>";
     }
 }

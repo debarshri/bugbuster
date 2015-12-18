@@ -14,7 +14,8 @@ public class ServerMain {
         Spark.get("/app",new AppList());
         Spark.get("/app/:appname",new App());
         Spark.get("/create-app",new CreateApp());
-        Spark.get("/create-issue/:appname/title/:title/body/:body",new CreateIssue());
+        Spark.get("/create-issue/:appname",new CreateIssuePage());
+        Spark.get("/creating-issue/:appname",new CreateIssue());
         Spark.get("/bug/:bugid",new Bug());
         Spark.get("/link/:bug_id1/to/:bug_id2",new CreateLink());
 

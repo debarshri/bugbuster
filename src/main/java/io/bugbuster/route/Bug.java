@@ -15,6 +15,7 @@ public class Bug implements Route {
     public Object handle(Request request, Response response) {
 
         String v = request.queryParams("v");
+        String data = "";
 
         if(v == null)
         {
@@ -37,7 +38,7 @@ public class Bug implements Route {
                     jsonObject.put("open",true);
                     jsonObject.put("modified_at",System.currentTimeMillis());
 
-                    String data = jsonObject.toString();
+                     data = jsonObject.toString();
                     FileUtils.writeStringToFile(file, data);
 
                     return data;
@@ -58,7 +59,7 @@ public class Bug implements Route {
                     jsonObject.put("open",false);
                     jsonObject.put("modified_at",System.currentTimeMillis());
 
-                    String data = jsonObject.toString();
+                    data = jsonObject.toString();
                     FileUtils.writeStringToFile(file, data);
 
                     return data;
