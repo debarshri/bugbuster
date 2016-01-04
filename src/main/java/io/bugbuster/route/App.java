@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import io.bugbuster.BugListConfigurationModel;
+import io.bugbuster.PageUtils;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -18,7 +19,7 @@ public class App implements Route {
         Collection<String> transform = Collections2
                 .transform(
                         Lists.newArrayList(
-                                new File(BugListConfigurationModel.BUGLIST_HOME + "/"
+                                new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/"
                                         + appname)
                                         .list()), new Function<String, String>() {
                             public String apply(String s) {
@@ -33,10 +34,9 @@ public class App implements Route {
             body = body + "<a href=\"/bug/"+collection+"\">"+collection+"</a>";
         }
 
-        return "  <head>\n" +
-                "    <title>Subscribe</title>\n" +
-                "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
-                "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
-                "  </head>\n"+body;
+        return  PageUtils.HEADER +
+                "  <section>" +
+                ""+body+
+                "</section>";
     }
 }

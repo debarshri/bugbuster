@@ -28,12 +28,11 @@ public class CreateIssue implements Route {
             jsonObject.put("modified_at", System.currentTimeMillis());
             jsonObject.put("open", true);
 
-            value = new File(BugListConfigurationModel.BUGLIST_HOME + "/" + appname).list().length+1;
+            value = new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/" + appname).list().length+1;
 
             jsonObject.put("id", appname+"-"+value);
 
-
-            File file = new File(BugListConfigurationModel.BUGLIST_HOME + "/" + appname + "/" + value + ".json");
+            File file = new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/" + appname + "/" + value + ".json");
             FileUtils.writeStringToFile(file,jsonObject.toString());
 
         } catch (JSONException e) {

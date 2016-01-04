@@ -1,7 +1,9 @@
 package io.bugbuster.route;
 
 import io.bugbuster.BugListConfigurationModel;
+import io.bugbuster.route.runnable.WriterRunnable;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import spark.Request;
@@ -10,73 +12,61 @@ import spark.Route;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Bug implements Route {
     public Object handle(Request request, Response response) {
-
-        String v = request.queryParams("v");
-        String data = "";
-
-        if(v == null)
-        {
+        try {
+            String v = StringEscapeUtils.escapeHtml(request.queryParams("v"));
+            String data;
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
             String[] bugids = request.params("bugid").split("-");
-            try {
-                String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
 
-                System.out.println(pathname);
-                return FileUtils.readFileToString(new File(pathname));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }        }
-        else if (v.toUpperCase().equals("REOPEN"))
-            {
-                String[] bugids = request.params("bugid").split("-");
-                try {
-                    String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
-                    File file = new File(pathname);
-                    JSONObject jsonObject = new JSONObject(FileUtils.readFileToString(file));
-                    jsonObject.put("open",true);
-                    jsonObject.put("modified_at",System.currentTimeMillis());
+            if (v == null) {
 
-                     data = jsonObject.toString();
-                    FileUtils.writeStringToFile(file, data);
+                JSONObject object = new JSONObject(FileUtils.readFileToString(new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/" +
+                        bugids[bugids.length - 2] + "/" +
+                        bugids[bugids.length - 1] + ".json")));
 
-                    return data;
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (v.toUpperCase().equals("CLOSE"))
-            {String[] bugids = request.params("bugid").split("-");
-                try {
-                    String pathname = BugListConfigurationModel.BUGLIST_HOME + "/" + bugids[bugids.length - 2]+"/"+ bugids[bugids.length-1]+".json";
-                    File file = new File(pathname);
-                    System.out.println(pathname);
-                    JSONObject jsonObject = new JSONObject(FileUtils.readFileToString(file));
-                    jsonObject.put("open",false);
-                    jsonObject.put("modified_at",System.currentTimeMillis());
 
-                    data = jsonObject.toString();
-                    FileUtils.writeStringToFile(file, data);
+            } else if (v.toUpperCase().equals("REOPEN")) {
 
-                    return data;
+                String pathname = BugListConfigurationModel.BUG_BUSTER_HOME + "/" +
+                        bugids[bugids.length - 2] + "/" +
+                        bugids[bugids.length - 1] + ".json";
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                File file = new File(pathname);
+                data = new JSONObject(FileUtils.readFileToString(file))
+                        .put("open", true)
+                        .put("modified_at", System.currentTimeMillis()).toString();
+
+                executorService.submit(new WriterRunnable(file, data));
+
+                return data;
+            } else if (v.toUpperCase().equals("CLOSE")) {
+                String pathname = BugListConfigurationModel.BUG_BUSTER_HOME + "/" +
+                        bugids[bugids.length - 2] + "/" +
+                        bugids[bugids.length - 1] + ".json";
+                File file = new File(pathname);
+
+                data = new JSONObject(FileUtils.readFileToString(file))
+                        .put("open", false)
+                        .put("modified_at", System.currentTimeMillis()).toString();
+
+                executorService.submit(new WriterRunnable(file, data));
+                return data;
 
             }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
 
-        return  "  <head>\n" +
+        return "  <head>\n" +
                 "    <title>Subscribe</title>\n" +
                 "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
                 "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
-                "  </head>\n" +"No result";
+                "  </head>\n" + "No result";
     }
-
 }

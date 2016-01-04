@@ -4,6 +4,6 @@ import java.io.File;
 
 public class BugListConfigurationModel {
 
-    public static String BUGLIST_HOME;
-    public static File BUGLIST_DIR;
+    public static String BUG_BUSTER_HOME;
+    public static File BUG_BUSTER_DIR;
 }

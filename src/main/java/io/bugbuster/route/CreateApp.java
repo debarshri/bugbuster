@@ -10,14 +10,14 @@ import java.io.File;
 
 public class CreateApp implements Route {
     public Object handle(Request request, Response response) {
-        String appname2 = request.params("appname");
+        String appName = request.params("appname");
 
-        if(appname2 == null)
+        if(appName == null)
         {
             String appname = request.queryParams("appname");
-            String appname1 = BugListConfigurationModel.BUGLIST_HOME + "/" + appname;
-            System.out.println(appname1);
-            File appBugDir = new File(appname1);
+            String bugBusterHome = BugListConfigurationModel.BUG_BUSTER_HOME + "/" + appname;
+            System.out.println(bugBusterHome);
+            File appBugDir = new File(bugBusterHome);
             boolean mkdir = appBugDir.mkdir();
 
             if(mkdir)
@@ -28,6 +28,7 @@ public class CreateApp implements Route {
         }
         else
         {
+            response.status(404);
             return "Cannot create";
         }
     }

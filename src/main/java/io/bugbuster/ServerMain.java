@@ -7,28 +7,27 @@ import java.io.File;
 
 public class ServerMain {
     public static void main(String[] args) {
-
         setup();
         Spark.setPort(9090);
-        Spark.get("/",new BugListHome());
+        Spark.get("/",new BugBusterHome());
         Spark.get("/app",new AppList());
         Spark.get("/app/:appname",new App());
         Spark.get("/create-app",new CreateApp());
         Spark.get("/create-issue/:appname",new CreateIssuePage());
+        Spark.post("/create-issue/:appname",new CreateIssue());
         Spark.get("/creating-issue/:appname",new CreateIssue());
         Spark.get("/bug/:bugid",new Bug());
         Spark.get("/link/:bug_id1/to/:bug_id2",new CreateLink());
-
     }
 
     private static void setup() {
-        BugListConfigurationModel.BUGLIST_HOME = System.getProperty("bugify.home");
-        if(BugListConfigurationModel.BUGLIST_HOME == null)
+        BugListConfigurationModel.BUG_BUSTER_HOME = System.getProperty("bugify.home");
+        if(BugListConfigurationModel.BUG_BUSTER_HOME == null)
         {
-            BugListConfigurationModel.BUGLIST_HOME = "bugify-workspace/";
+            BugListConfigurationModel.BUG_BUSTER_HOME = "bugify-workspace/";
         }
 
-        BugListConfigurationModel.BUGLIST_DIR = new File(BugListConfigurationModel.BUGLIST_HOME);
-        System.out.println(BugListConfigurationModel.BUGLIST_DIR.mkdir());
+        BugListConfigurationModel.BUG_BUSTER_DIR = new File(BugListConfigurationModel.BUG_BUSTER_HOME);
+        System.out.println(BugListConfigurationModel.BUG_BUSTER_DIR.mkdir());
     }
 }

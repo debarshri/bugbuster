@@ -17,7 +17,7 @@ public class App implements Route {
         Collection<String> transform = Collections2
                 .transform(
                         Lists.newArrayList(
-                                new File(BugListConfigurationModel.BUGLIST_HOME + "/"
+                                new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/"
                                         + appname)
                                         .list()), new Function<String, String>() {
                             public String apply(String s) {
