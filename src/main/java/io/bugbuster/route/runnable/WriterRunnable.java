@@ -5,9 +5,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by dbasak on 1/4/16.
- */
 public class WriterRunnable implements Runnable{
     private final File file;
     private final String data;

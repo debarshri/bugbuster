@@ -1,6 +1,10 @@
 package io.bugbuster;
 
+import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
@@ -17,7 +21,32 @@ public class PageUtils {
     }
 
     public static String bug(String title, String description, String...tags) {
-        return "<h1>"+ escapeHtml(title)+"</h1>"+
-                "<p>"+escapeHtml(description)+"</p>";
+
+        List<String> transform  = FluentIterable.from(Arrays.asList(tags))
+                .filter(new TagFilter())
+                .transform(new TagTransformer())
+                .toList();
+
+        return "<section><h1>"+ escapeHtml(title)+"</h1>"+
+                "<p>"+escapeHtml(description)+"</p>"+
+                StringUtils.join(transform,"&nbsp;")+
+                "<button>Edit</button>&nbsp;"+
+                "<button>Delete</button>"+
+                "</section>" ;
+    }
+
+    private static class TagTransformer implements com.google.common.base.Function< String, String> {
+
+        @Override
+        public String apply(String s) {
+            return "<span style=\"border-radius:5px;background-color:orange; padding:5px;color:white;\">"+s+"</span>";
+        }
+    }
+
+    private static class TagFilter implements com.google.common.base.Predicate<String> {
+        @Override
+        public boolean apply(String s) {
+            return !s.isEmpty();
+        }
     }
 }

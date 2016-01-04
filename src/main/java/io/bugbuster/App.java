@@ -29,7 +29,7 @@ public class App implements Route {
 
         for(String collection : transform)
         {
-            body = body + "<a href=\"/bug/"+collection+"\">"+collection+"</a>";
+            body = body + "<a href=\"/bug/"+collection+"\">"+collection+"</a><br />";
         }
 
         return PageUtils.HEADER+
