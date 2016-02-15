@@ -19,7 +19,7 @@ public class DeleteMode implements Mode {
     public String body() throws JSONException, IOException {
         String[] split = file1.getParent().split("/");
         file1.delete();
-        response.redirect("/app/"+split[split.length-1]);
+        response.redirect("/v1/app/"+split[split.length-1]);
         return null;
     }
 }

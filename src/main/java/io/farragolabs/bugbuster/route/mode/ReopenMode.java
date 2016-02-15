@@ -33,9 +33,8 @@ public class ReopenMode implements Mode {
 
         executorService.submit(new WriterRunnable(file1, data));
 
-
         String[] split = file1.getAbsolutePath().split("/");
-        response.redirect("/bug/"+split[split.length-2]+"-"+split[split.length-1].replaceAll(".json",""));
+        response.redirect("/v1/bug/"+split[split.length-2]+"-"+split[split.length-1].replaceAll(".json",""));
         return data;
     }
 }

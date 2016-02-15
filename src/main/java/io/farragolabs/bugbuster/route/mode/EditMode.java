@@ -3,13 +3,18 @@ package io.farragolabs.bugbuster.route.mode;
 import com.google.common.collect.Lists;
 import io.farragolabs.bugbuster.PageUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static io.farragolabs.bugbuster.PageUtils.HEADER;
 
@@ -31,7 +36,18 @@ public class EditMode implements Mode {
             tags.add(rawTags.getString(i));
         }
 
+        /*
         return HEADER + PageUtils.editableBug(file1, bug.getString("title"),
                 bug.getString("body"), tags.toArray(new String[tags.size()]));
+*/
+
+        Map<String, String> variables = new HashMap<>();
+
+        variables.put("title",bug.getString("title"));
+        variables.put("path", file1.getAbsolutePath());
+        variables.put("body", bug.getString("body"));
+        variables.put("tags", StringUtils.join(tags.toArray(new String[tags.size()])," "));
+
+        return new HandlebarsTemplateEngine().render(new ModelAndView(variables,"editable.hbs"));
     }
 }

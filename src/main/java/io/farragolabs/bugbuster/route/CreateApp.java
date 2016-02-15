@@ -20,7 +20,7 @@ public class CreateApp implements Route {
             boolean mkdir = appBugDir.mkdir();
 
             if (mkdir) {
-                response.redirect("/app/" + appname);
+                response.redirect("/v1/app/" + appname);
             }
             return PageUtils.HEADER + mkdir;
         } else {

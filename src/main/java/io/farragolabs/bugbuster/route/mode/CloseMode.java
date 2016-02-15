@@ -31,7 +31,7 @@ public class CloseMode implements Mode {
         executorService.submit(new WriterRunnable(file, data));
 
         String[] split = file.getAbsolutePath().split("/");
-        response.redirect("/app/"+ split[split.length-2]);
+        response.redirect("/v1/app/"+ split[split.length-2]);
         return data;
     }
 }

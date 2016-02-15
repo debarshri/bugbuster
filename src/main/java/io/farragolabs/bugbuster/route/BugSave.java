@@ -48,7 +48,7 @@ public class BugSave implements Route {
             String[] split = file.getParent().split("/");
             System.out.println();
 
-            response.redirect("/bug/" + split[split.length - 1] + "-" + file.getName().replaceAll(".json", ""));
+            response.redirect("/v1/bug/" + split[split.length - 1] + "-" + file.getName().replaceAll(".json", ""));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

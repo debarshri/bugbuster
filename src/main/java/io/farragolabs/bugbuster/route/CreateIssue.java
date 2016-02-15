@@ -60,13 +60,13 @@ public class CreateIssue implements Route {
             e.printStackTrace();
         }
 
-        response.redirect("/bug/" + appId);
+        response.redirect("/v1/bug/" + appId);
 
         return "  <head>\n" +
                 "    <title>Subscribe</title>\n" +
                 "    <link rel=\"stylesheet\" type=\"text/css\"\n" +
                 "      href=\"http://yegor256.github.io/tacit/tacit.min.css\"/>\n" +
                 "  </head>\n" +
-                "<a href=\"/bug/" + appId + "\">" + appId + "</a>";
+                "<a href=\"/v1/bug/" + appId + "\">" + appId + "</a>";
     }
 }
