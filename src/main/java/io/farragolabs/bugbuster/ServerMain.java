@@ -1,6 +1,5 @@
 package io.farragolabs.bugbuster;
 
-import io.farragolabs.bugbuster.database.DBFactory;
 import io.farragolabs.bugbuster.route.*;
 import spark.Spark;
 
@@ -9,10 +8,8 @@ import java.io.File;
 public class ServerMain {
     public static void main(String[] args) {
 
-        DBFactory.get();
-
         setup();
-        Spark.setPort(9090);
+        Spark.port(9090);
         Spark.get("/", new BugBusterHome());
         Spark.get("/app", new AppList());
         Spark.get("/app/:appname", new App());
