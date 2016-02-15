@@ -20,7 +20,7 @@ public class ServerMain {
         Spark.post("/create-user", new PostCreateUser());
         Spark.get("/login", new ShowLogin(handlebarsTemplateEngine));
         Spark.post("/login", new PostLogin());
-        Spark.post("/logout", new Logout());
+        Spark.get("/logout", new Logout());
 
         //------App----------//
         Spark.get("/v1", new BugBusterHome(handlebarsTemplateEngine));
