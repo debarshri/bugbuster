@@ -1,15 +1,10 @@
 package io.farragolabs.bugbuster;
 
 import io.farragolabs.bugbuster.route.*;
-import spark.Filter;
-import spark.Request;
-import spark.Response;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.io.File;
-
-import static spark.Spark.halt;
 
 public class ServerMain {
     public static void main(String[] args) {
@@ -17,7 +12,6 @@ public class ServerMain {
         HandlebarsTemplateEngine handlebarsTemplateEngine = new HandlebarsTemplateEngine();
 
         setup();
-        Spark.port(9090);
 
         Spark.get("/", new HomeRedirect());
 
@@ -51,7 +45,15 @@ public class ServerMain {
     }
 
     private static void setup() {
-        BugListConfigurationModel.BUG_BUSTER_HOME = System.getProperty("bugify.home");
+
+        String property = System.getProperty("bugbuster.port");
+        if (property == null) {
+            Spark.port(9090);
+        } else {
+            Spark.port(Integer.valueOf(property));
+        }
+
+        BugListConfigurationModel.BUG_BUSTER_HOME = System.getProperty("bugbuster.home");
         if (BugListConfigurationModel.BUG_BUSTER_HOME == null) {
             BugListConfigurationModel.BUG_BUSTER_HOME = "bugify-workspace/";
         }
