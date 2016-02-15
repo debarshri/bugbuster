@@ -29,14 +29,13 @@ public class App implements Route {
 
         String body = "";
 
-        for(String collection : transform)
-        {
-            body = body + "<a href=\"/bug/"+collection+"\">"+collection+"</a><br />";
+        for (String collection : transform) {
+            body = body + "<a href=\"/bug/" + collection + "\">" + collection + "</a><br />";
         }
 
-        return  PageUtils.HEADER +
+        return PageUtils.HEADER +
                 "  <section>" +
-                ""+body+
+                "" + body +
                 "</section>";
     }
 }

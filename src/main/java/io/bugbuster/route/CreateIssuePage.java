@@ -27,14 +27,14 @@ public class CreateIssuePage implements Route {
         return PageUtils.HEADER +
                 "" +
                 "<br />" +
-                "<section>"+
-                PageUtils.form("post","/create-issue/"+appname,
+                "<section>" +
+                PageUtils.form("post", "/create-issue/" + appname,
                         "<input name=\"title\" style=\"width:50.48em\" placeholder=\"title\" /><br />",
                         "<textarea name=\"description\" style=\"width:50.48em\"  placeholder=\"Description\"></textarea>",
                         "<input name=\"tags\"  placeholder=\"Comma separated tags\"/>",
                         "<br />",
                         "<br />",
-                        "<button type='submit'>Create Issue</button>")+
+                        "<button type='submit'>Create Issue</button>") +
                 "</section>";
     }
 }

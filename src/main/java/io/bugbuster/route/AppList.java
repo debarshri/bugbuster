@@ -16,21 +16,20 @@ public class AppList implements Route {
     public Object handle(Request request, Response response) {
         List<String> strings = Lists.newArrayList(BugListConfigurationModel.BUG_BUSTER_DIR.list());
 
-        return   PageUtils.HEADER +
-                "<section>"+
-                "<hr />"+
-                body(strings)+"</section>";
+        return PageUtils.HEADER +
+                "<section>" +
+                "<hr />" +
+                body(strings) + "</section>";
     }
 
     private String body(List<String> strings) {
 
         List<String> body = Lists.newArrayList();
 
-        for(String element : strings)
-        {
-             body.add( "<a href=\"/app/"+element+"\">"+element+"</a><br />");
+        for (String element : strings) {
+            body.add("<a href=\"/app/" + element + "\">" + element + "</a><br />");
         }
 
-        return StringUtils.join(body,"");
+        return StringUtils.join(body, "");
     }
 }
