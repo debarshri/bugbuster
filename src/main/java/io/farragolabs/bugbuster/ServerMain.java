@@ -2,16 +2,19 @@ package io.farragolabs.bugbuster;
 
 import io.farragolabs.bugbuster.route.*;
 import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.io.File;
 
 public class ServerMain {
     public static void main(String[] args) {
 
+        HandlebarsTemplateEngine handlebarsTemplateEngine = new HandlebarsTemplateEngine();
+
         setup();
         Spark.port(9090);
-        Spark.get("/", new BugBusterHome());
-        Spark.get("/app", new AppList());
+        Spark.get("/", new BugBusterHome(handlebarsTemplateEngine));
+        Spark.get("/app", new AppList(handlebarsTemplateEngine));
         Spark.get("/app/:appname", new App());
         Spark.get("/create-app", new CreateApp());
         Spark.post("/comments", new SaveComments());

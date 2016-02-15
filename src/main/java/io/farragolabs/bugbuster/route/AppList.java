@@ -1,33 +1,30 @@
 package io.farragolabs.bugbuster.route;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.farragolabs.bugbuster.BugListConfigurationModel;
-import io.farragolabs.bugbuster.PageUtils;
 import org.apache.commons.lang.StringUtils;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class AppList implements Route {
-    public Object handle(Request request, Response response) {
-        List<String> strings = Lists.newArrayList(BugListConfigurationModel.BUG_BUSTER_DIR.list());
+    private HandlebarsTemplateEngine handlebarsTemplateEngine;
 
-        return PageUtils.HEADER +
-                "<section>" +
-                "<hr />" +
-                body(strings) + "</section>";
+    public AppList(HandlebarsTemplateEngine handlebarsTemplateEngine) {
+        this.handlebarsTemplateEngine = handlebarsTemplateEngine;
     }
 
-    private String body(List<String> strings) {
+    public Object handle(Request request, Response response) {
+        List<String> apps = Lists.newArrayList(BugListConfigurationModel.BUG_BUSTER_DIR.list());
+        HashMap<String, List<String>> appList  = Maps.newHashMap();
+        appList.put("applist",apps);
 
-        List<String> body = Lists.newArrayList();
-
-        for (String element : strings) {
-            body.add("<a href=\"/app/" + element + "\">" + element + "</a><br />");
-        }
-
-        return StringUtils.join(body, "");
+        return handlebarsTemplateEngine.render(new ModelAndView(appList,"app.hbs"));
     }
 }
