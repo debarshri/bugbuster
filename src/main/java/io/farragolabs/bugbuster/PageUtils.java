@@ -58,7 +58,7 @@ public class PageUtils {
                 "<br />" +
                 "<br />" +
                 "<hr />" +
-                "<form method='POST' action='/comments' >" +
+                "<form method='POST' action='/v1/comments' >" +
                 "<input type='hidden' name='file' value='"+file1.getAbsolutePath()+"' />" +
                 "<textarea name='comment' style='width:80%;height:10%;''>" +
                 "</textarea>" +
@@ -76,7 +76,7 @@ public class PageUtils {
     }
 
     public static String editableBug(File file1, String title, String body, String[] strings) {
-        return "<section><form action='/bugSave' method='POST' >" +
+        return "<section><form action='/v1/bugSave' method='POST' >" +
                 "<label>Title</label>" +
                 "<input type='text' name='title' value='" + escapeHtml(title) + "' style='width:80%;' />" +
 

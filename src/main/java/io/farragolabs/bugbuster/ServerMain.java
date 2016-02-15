@@ -25,20 +25,18 @@ public class ServerMain {
         //------App----------//
         Spark.get("/v1", new BugBusterHome(handlebarsTemplateEngine));
         Spark.get("/v1/app", new AppList(handlebarsTemplateEngine));
-        Spark.get("/v1//app/:appname", new App());
-        Spark.get("/v1//create-app", new CreateApp());
+        Spark.get("/v1/app/:appname", new App());
+
+        Spark.get("/v1/create-app", new CreateApp());
         Spark.post("/v1//comments", new SaveComments());
-        Spark.get("/v1//create-issue/:appname", new CreateIssuePage());
-        Spark.post("/v1//create-issue/:appname", new CreateIssue());
-        Spark.get("/v1//creating-issue/:appname", new CreateIssue());
-        Spark.get("/v1//bug/:bugid", new Bug());
-        Spark.get("/v1//upload", new Upload());
-        Spark.post("/v1//bugSave", new BugSave());
-        Spark.get("/v1//link/:bug_id1/to/:bug_id2", new CreateLink());
+        Spark.get("/v1/create-issue/:appname", new CreateIssuePage());
+        Spark.post("/v1/create-issue/:appname", new CreateIssue());
+        Spark.get("/v1/creating-issue/:appname", new CreateIssue());
 
-        Spark.get("/login", new ShowLogin(handlebarsTemplateEngine));
-        Spark.post("/login", new PostLogin());
-
+        Spark.get("/v1/bug/:bugid", new Bug());
+        Spark.get("/v1/upload", new Upload());
+        Spark.post("/v1/bugSave", new BugSave());
+        Spark.get("/v1/link/:bug_id1/to/:bug_id2", new CreateLink());
 
         Spark.before("/v1", new AuthenticationFilter());
         Spark.before("/v1/*", new AuthenticationFilter());

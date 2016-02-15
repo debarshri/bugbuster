@@ -30,7 +30,7 @@ public class App implements Route {
         String body = "";
 
         for (String collection : transform) {
-            body = body + "<a href=\"/bug/" + collection + "\">" + collection + "</a><br />";
+            body = body + "<a href=\"/v1/bug/" + collection + "\">" + collection + "</a><br />";
         }
 
         return PageUtils.HEADER +
