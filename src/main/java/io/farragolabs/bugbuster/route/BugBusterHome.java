@@ -1,9 +1,12 @@
 package io.farragolabs.bugbuster.route;
 
-import io.farragolabs.bugbuster.PageUtils;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import java.util.HashMap;
 
 public class BugBusterHome implements Route {
 
@@ -22,7 +25,11 @@ public class BugBusterHome implements Route {
             "           </form>" +
             "      </section>\n";
 
-    public Object handle(Request request, Response response) {
+    public String handle(Request request, Response response) {
+        HandlebarsTemplateEngine handlebarsTemplateEngine = new HandlebarsTemplateEngine();
+        return handlebarsTemplateEngine.render(new ModelAndView(new HashMap<>(), "index.hs"));
+
+        /*
         return "<html>\n" +
                 PageUtils.HEADER +
                 "    <section>\n" +
@@ -33,5 +40,6 @@ public class BugBusterHome implements Route {
                 CREATE_APP +
                 "  </body>\n" +
                 "</html>";
+                */
     }
 }
