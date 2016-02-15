@@ -3,7 +3,6 @@ package io.farragolabs.bugbuster.route;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.farragolabs.bugbuster.BugListConfigurationModel;
-import org.apache.commons.lang.StringUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

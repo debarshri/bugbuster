@@ -15,18 +15,18 @@
     <body>
            <nav>Bug_buster</nav>
           <section>
-            <button onclick="window.location.href='/app'">See all apps</button>
+            <button onclick="window.location.href='/v1/app'">See all apps</button>
               <hr />
                 <button id="searchbutton">Search</button>
                 <section id="search" style="display:none;">
-                    <form action="/search">Search <input name="appname" type="text"/>
+                    <form action="/v1/search">Search <input name="appname" type="text"/>
                         <button type="submit">Go</button>
                     </form>
                 </section>
              <hr />
                <button id="createapp">Create App</button>
                <section id="create" style="display:none;">
-                    <form action="/create-app"> App name <input name="appname" type="text"/>
+                    <form action="/v1/create-app"> App name <input name="appname" type="text"/>
                        <button type="submit">Create</button>
                     </form>
                </section>
