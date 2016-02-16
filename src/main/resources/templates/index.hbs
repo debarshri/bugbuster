@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-{{>header}}
+{{>header.hbs}}
 <script>
          $(document).ready(function(){
               $("#searchbutton").click(function() {$("#search").toggle();})
@@ -9,9 +9,9 @@
 
 </script>
 <body>
-{{>navbar}}
-<nav>Bug_buster</nav>
+{{>navbar.hbs}}
 <section>
+    <hr>
     <button onclick="window.location.href='/v1/app'">See all apps</button>
     <hr/>
     <button id="searchbutton">Search</button>
@@ -28,6 +28,6 @@
         </form>
     </section>
 </section>
-{{>footer}}
+{{>footer.hbs}}
 </body>
 </html>
