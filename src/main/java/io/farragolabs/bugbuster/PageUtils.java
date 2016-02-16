@@ -56,12 +56,6 @@ public class PageUtils {
                 "<br />" +
                 "<br />" +
                 "<hr />" +
-                "<form method='POST' action='/v1/comments' >" +
-                "<input type='hidden' name='file' value='" + file1.getAbsolutePath() + "' />" +
-                "<textarea name='comment' style='width:80%;height:10%;''>" +
-                "</textarea>" +
-                "<button>Add comments</button>" +
-                "</form>" +
                 "</section>";
     }
 

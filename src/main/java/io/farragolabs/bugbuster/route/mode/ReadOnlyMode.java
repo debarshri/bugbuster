@@ -51,7 +51,20 @@ public class ReadOnlyMode implements Mode {
 
         Map<String, Object> params = new HashMap<>();
 
+        if(bug.has("comments"))
+        {
+            JSONArray comments = bug.getJSONArray("comments");
+
+            List<String>commmetz = Lists.newArrayList();
+
+            for(int i=0; i < comments.length(); i++)
+            {
+                commmetz.add(comments.getString(i));
+            }
+            params.put("comments", commmetz);
+        }
         params.put("content", bug1);
+        params.put("path",file1.getAbsolutePath());
 
         HandlebarsTemplateEngine handlebarsTemplateEngine = new HandlebarsTemplateEngine();
         return handlebarsTemplateEngine.render(new ModelAndView(params, "bug.hbs"));
