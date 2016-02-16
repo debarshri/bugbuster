@@ -4,20 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>bugify</groupId>
-    <artifactId>bugify</artifactId>
+    <groupId>bugbuster</groupId>
+    <artifactId>bugbuster</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <sparkjava.version>2.3</sparkjava.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
-            <version>2.0.0</version>
+            <version>${sparkjava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>
-            <artifactId>spark-template-freemarker</artifactId>
-            <version>2.0.0</version>
+            <artifactId>spark-template-handlebars</artifactId>
+            <version>${sparkjava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-template-jade</artifactId>
+            <version>${sparkjava.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
@@ -30,19 +39,9 @@
             <version>2.4</version>
         </dependency>
         <dependency>
-            <groupId>com.google.collections</groupId>
-            <artifactId>google-collections</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
         </dependency>
         <dependency>
             <groupId>org.pegdown</groupId>
@@ -53,6 +52,21 @@
             <groupId>com.github.rjeschke</groupId>
             <artifactId>txtmark</artifactId>
             <version>0.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.3m</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
         </dependency>
     </dependencies>
 
@@ -100,7 +114,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>io.bugbuster.ServerMain</mainClass>
+                            <mainClass>io.farragolabs.bugbuster.ServerMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

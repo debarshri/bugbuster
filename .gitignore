@@ -1,4 +1,6 @@
 bugify-workspace
+bugify-user-dir
+bugify-user-dir/*
 bugify-workspace/*
 *.idea
 *.iml
