@@ -21,9 +21,10 @@ public class AppList implements Route {
 
     public Object handle(Request request, Response response) {
         List<String> apps = Lists.newArrayList(BugListConfigurationModel.BUG_BUSTER_DIR.list());
-        HashMap<String, List<String>> appList  = Maps.newHashMap();
-        appList.put("applist",apps);
+        HashMap<String, Object> appList = Maps.newHashMap();
+        appList.put("applist", apps);
+        appList.put("home", "/");
 
-        return handlebarsTemplateEngine.render(new ModelAndView(appList,"app.hbs"));
+        return handlebarsTemplateEngine.render(new ModelAndView(appList, "app.hbs"));
     }
 }

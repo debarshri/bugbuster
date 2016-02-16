@@ -47,9 +47,8 @@ public class CreateIssue implements Route {
 
             File file = new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/" + appname + "/" + value + ".json");
 
-            while(file.exists())
-            {
-                value = value+1;
+            while (file.exists()) {
+                value = value + 1;
                 file = new File(BugListConfigurationModel.BUG_BUSTER_HOME + "/" + appname + "/" + value + ".json");
                 appId = appname + "-" + value;
             }

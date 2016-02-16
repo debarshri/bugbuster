@@ -35,18 +35,16 @@ public class PageUtils {
         String subscriptTag;
         String openClose;
 
-        if(isOpen)
-        {
+        if (isOpen) {
             subscriptTag = "<span style='background-color:green; padding-left:5px; padding-right:5px;padding-top:2px;padding-bottom:2px; border-radius:5px;color:white;margin-bottom:-12px;font-size:12px;'>open</span>";
             openClose = "<button onclick=\"window.location.href='" + url + "?mode=close'\">Close</button>";
-        }
-        else {
+        } else {
             subscriptTag = "<span style='background-color:red; padding-left:5px; padding-right:5px;padding-top:2px;padding-bottom:2px; border-radius:5px;color:white;margin-bottom:-12px;font-size:12px;'>closed</span>";
             openClose = "<button onclick=\"window.location.href='" + url + "?mode=reopen'\">Reopen</button>";
         }
 
         return "<section>" +
-                "<h1>" + title +"&nbsp;"+ subscriptTag+"</h1>" +
+                "<h1>" + title + "&nbsp;" + subscriptTag + "</h1>" +
                 "<button onclick=\"window.location.href='" + url + "?mode=edit'\" >Edit</button>&nbsp;" +
                 openClose +
                 "<br />" +
@@ -58,12 +56,6 @@ public class PageUtils {
                 "<br />" +
                 "<br />" +
                 "<hr />" +
-                "<form method='POST' action='/v1/comments' >" +
-                "<input type='hidden' name='file' value='"+file1.getAbsolutePath()+"' />" +
-                "<textarea name='comment' style='width:80%;height:10%;''>" +
-                "</textarea>" +
-                "<button>Add comments</button>" +
-                "</form>" +
                 "</section>";
     }
 

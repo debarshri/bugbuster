@@ -43,11 +43,11 @@ public class EditMode implements Mode {
 
         Map<String, String> variables = new HashMap<>();
 
-        variables.put("title",bug.getString("title"));
+        variables.put("title", bug.getString("title"));
         variables.put("path", file1.getAbsolutePath());
         variables.put("body", bug.getString("body"));
-        variables.put("tags", StringUtils.join(tags.toArray(new String[tags.size()])," "));
+        variables.put("tags", StringUtils.join(tags.toArray(new String[tags.size()]), " "));
 
-        return new HandlebarsTemplateEngine().render(new ModelAndView(variables,"editable.hbs"));
+        return new HandlebarsTemplateEngine().render(new ModelAndView(variables, "editable.hbs"));
     }
 }

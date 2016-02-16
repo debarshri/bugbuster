@@ -5,11 +5,15 @@ import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import spark.ModelAndView;
 import spark.Request;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static io.farragolabs.bugbuster.PageUtils.HEADER;
 import static io.farragolabs.bugbuster.PageUtils.bug;
@@ -38,11 +42,31 @@ public class ReadOnlyMode implements Mode {
 
         String body = markDownToHtml(bug.getString("body"));
 
-        return HEADER + bug(file1,
+        String bug1 = bug(file1,
                 request.url(),
                 bug.getString("title"),
                 bug.getBoolean("open"),
                 body,
                 tags.toArray(new String[tags.size()]));
+
+        Map<String, Object> params = new HashMap<>();
+
+        if(bug.has("comments"))
+        {
+            JSONArray comments = bug.getJSONArray("comments");
+
+            List<String>commmetz = Lists.newArrayList();
+
+            for(int i=0; i < comments.length(); i++)
+            {
+                commmetz.add(comments.getString(i));
+            }
+            params.put("comments", commmetz);
+        }
+        params.put("content", bug1);
+        params.put("path",file1.getAbsolutePath());
+
+        HandlebarsTemplateEngine handlebarsTemplateEngine = new HandlebarsTemplateEngine();
+        return handlebarsTemplateEngine.render(new ModelAndView(params, "bug.hbs"));
     }
 }

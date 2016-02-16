@@ -1,19 +1,14 @@
 <!doctype html>
 <html lang="en">
-     <head>
-      <title>Bug_buster</title>
-      <link rel="stylesheet" type="text/css" href="http://yegor256.github.io/tacit/tacit.min.css"/>
-      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    </head>
-        <body>
-               <nav>Bug_buster</nav>
-                  <section>
-                   <form action="/create-user" method="post">
-                            User name <input name="username" type="text"/>
-                            Password <input name="password" type="password"/>
-                            Password again<input name="password-again" type="password"/>
-                              <button type="submit">Create User</button>
-                  </form>
-                  </section>
-        </body>
+{{>header.hbs}}
+<body>
+<section>
+    <form action="/create-user" method="post">
+        User name <input name="username" type="text"/>
+        Password <input name="password" type="password"/>
+        Password again<input name="password-again" type="password"/>
+        <button type="submit">Create User</button>
+    </form>
+</section>
+</body>
 </html>

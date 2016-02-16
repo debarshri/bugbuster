@@ -1,0 +1,24 @@
+{{>header.hbs}}
+{{>navbar.hbs}}
+{{{content}}}
+
+<section>
+    <label>Comments</label>
+    <hr>
+</section>
+
+{{#each comments}}
+    <section>
+        <pre>{{this}}</pre>
+        <hr>
+    </section>
+{{/each}}
+
+<section>
+    <form method='POST' action='/v1/comments'>
+        <input type='hidden' name='file' value='{{path}}'/>
+   <textarea name='comment' style='width:80%;height:10%;'>
+   </textarea>
+        <button>Add comments</button>
+    </form>
+</section>

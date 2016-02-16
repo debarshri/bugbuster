@@ -43,7 +43,7 @@ public class BugSave implements Route {
 
             FileUtils.writeStringToFile(file, object.toString());
 
-            logger.info("Saving bug with id "+id);
+            logger.info("Saving bug with id " + id);
 
             String[] split = file.getParent().split("/");
             System.out.println();

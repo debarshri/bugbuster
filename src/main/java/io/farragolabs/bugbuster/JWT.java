@@ -16,22 +16,20 @@ public class JWT {
 
     private static final String server_secret = "bugbuster";
 
-    public static String sign(String to_be_encoded)
-    {
+    public static String sign(String to_be_encoded) {
         Base64 decoder = new Base64(true);
         byte[] encode = decoder.encodeBase64(server_secret.getBytes());
         JWTSigner jwtSigner = new JWTSigner(encode);
         Map<String, Object> claims = new HashMap<>();
-        claims.put("aud",to_be_encoded);
+        claims.put("aud", to_be_encoded);
         return jwtSigner.sign(claims);
     }
 
-    public static boolean verify(String verification_code)
-    {
+    public static boolean verify(String verification_code) {
         Base64 decoder = new Base64(true);
         byte[] secret = decoder.encodeBase64(server_secret.getBytes());
 
-        Map<String,Object> decodedPayload;
+        Map<String, Object> decodedPayload;
         try {
             decodedPayload = new JWTVerifier(secret)
                     .verify(verification_code);

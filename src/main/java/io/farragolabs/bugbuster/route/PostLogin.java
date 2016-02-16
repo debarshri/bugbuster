@@ -21,12 +21,11 @@ public class PostLogin implements Route {
 
         List<String> userList = Lists.newArrayList(BugListConfigurationModel.BUG_BUSTER_USER_DIR.list());
 
-        if(userList.contains(username))
-        {
-            String readSaltedHash = FileUtils.readFileToString(new File(BugListConfigurationModel.BUG_BUSTER_USER_DIR.getAbsolutePath() + "/" + username+"/info"));
-            if (BCrypt.checkpw(password, readSaltedHash))
-            {
+        if (userList.contains(username)) {
+            String readSaltedHash = FileUtils.readFileToString(new File(BugListConfigurationModel.BUG_BUSTER_USER_DIR.getAbsolutePath() + "/" + username + "/info"));
+            if (BCrypt.checkpw(password, readSaltedHash)) {
                 response.cookie("user_auth", JWT.sign(username));
+                response.cookie("user_name", username);
                 response.redirect("/v1");
             }
         }

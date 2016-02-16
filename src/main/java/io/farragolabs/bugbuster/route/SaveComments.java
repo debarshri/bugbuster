@@ -1,4 +1,4 @@
-package io.farragolabs.bugbuster;
+package io.farragolabs.bugbuster.route;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jettison.json.JSONArray;
@@ -10,6 +10,7 @@ import spark.Route;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 public class SaveComments implements Route {
     @Override
@@ -21,23 +22,25 @@ public class SaveComments implements Route {
             JSONObject file = new JSONObject(FileUtils.readFileToString(file1));
             JSONArray comments;
 
-            if(!file.has("comments"))
-            {
+            if (!file.has("comments")) {
                 comments = new JSONArray();
-
-            }
-            else
-            {
+            } else {
                 comments = file.getJSONArray("comments");
             }
 
-            comments.put(request.queryParams("comment"));
-            file.put("comments",comments);
+            String comment = URLDecoder.decode(request.queryParams("comment"),"UTF-8");
 
-            FileUtils.writeStringToFile(file1,file.toString());
+            System.out.println(comment);
 
+            if(!comment.isEmpty())
+            {
+                comments.put(comment);
+                file.put("comments", comments);
+            }
+
+            FileUtils.writeStringToFile(file1, file.toString());
             String[] split = fileName.split("/");
-            response.redirect("/bug/"+ split[split.length-2]+"-"+split[split.length-1].replaceAll(".json",""));
+            response.redirect("/v1/bug/" + split[split.length - 2] + "-" + split[split.length - 1].replaceAll(".json", ""));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
