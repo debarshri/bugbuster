@@ -20,10 +20,10 @@ public class ModeFactory {
             return new ReopenMode(file1, executorService, response);
         } else if (mode.toUpperCase().equals("CLOSE")) {
             return new CloseMode(file1, executorService, response);
-    } else if (mode.toUpperCase().equals("DELETE")) {
+        } else if (mode.toUpperCase().equals("DELETE")) {
 
-        return new DeleteMode(file1, response);
-    }else {
+            return new DeleteMode(file1, response);
+        } else {
             return new NoResultMode();
         }
     }

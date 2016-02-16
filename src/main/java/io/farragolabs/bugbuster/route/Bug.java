@@ -26,7 +26,7 @@ public class Bug implements Route {
                     bugids[bugids.length - 1] + ".json");
 
             return ModeFactory
-                    .createInstance(mode,file1,executorService,request, response)
+                    .createInstance(mode, file1, executorService, request, response)
                     .body();
 
         } catch (IOException | JSONException e) {

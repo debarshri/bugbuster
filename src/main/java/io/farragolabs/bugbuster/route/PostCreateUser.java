@@ -19,29 +19,20 @@ public class PostCreateUser implements Route {
         String password = request.queryParams("password");
         String passwordAgain = request.queryParams("password-again");
 
-        if(containsWhitespace(password) || containsWhitespace(passwordAgain) || containsWhitespace(username) )
-        {
+        if (containsWhitespace(password) || containsWhitespace(passwordAgain) || containsWhitespace(username)) {
             return "Dude seriously? Whitespaces in password and username?";
-        }
-        else if(!password.equals(passwordAgain))
-        {
+        } else if (!password.equals(passwordAgain)) {
             return "You are blind..Write passwords correctly.";
-        }
-        else
-        {
+        } else {
             String pathname = BugListConfigurationModel.BUG_BUSTER_USER_DIR.getAbsolutePath() + "/" + username;
             File file = new File(pathname);
-            if(!file.exists())
-            {
-                if(file.mkdir())
-                {
+            if (!file.exists()) {
+                if (file.mkdir()) {
                     File info = new File(pathname + "/info");
                     FileUtils.writeStringToFile(info, BCrypt.hashpw(password, BCrypt.gensalt()));
                     response.redirect("/login");
                 }
-            }
-            else
-            {
+            } else {
                 return "User already exists";
             }
         }

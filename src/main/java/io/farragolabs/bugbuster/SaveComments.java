@@ -21,23 +21,19 @@ public class SaveComments implements Route {
             JSONObject file = new JSONObject(FileUtils.readFileToString(file1));
             JSONArray comments;
 
-            if(!file.has("comments"))
-            {
+            if (!file.has("comments")) {
                 comments = new JSONArray();
-
-            }
-            else
-            {
+            } else {
                 comments = file.getJSONArray("comments");
             }
 
             comments.put(request.queryParams("comment"));
-            file.put("comments",comments);
+            file.put("comments", comments);
 
-            FileUtils.writeStringToFile(file1,file.toString());
+            FileUtils.writeStringToFile(file1, file.toString());
 
             String[] split = fileName.split("/");
-            response.redirect("/bug/"+ split[split.length-2]+"-"+split[split.length-1].replaceAll(".json",""));
+            response.redirect("/bug/" + split[split.length - 2] + "-" + split[split.length - 1].replaceAll(".json", ""));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
